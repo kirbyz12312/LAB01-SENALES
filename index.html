@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 1: Señales y Sistemas</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        darkBg: '#0f172a',
+                        cardBg: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Prism.js (Syntax Highlighting) - Tomorrow Night Theme -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-matlab.min.js"></script>
+
+    <!-- MathJax (LaTeX Rendering) -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-darkBg text-gray-200 font-sans antialiased overflow-x-hidden">
+
+    <!-- Hero Section -->
+    <header
+        class="relative flex flex-col items-center justify-center min-h-screen text-center px-4 py-20 overflow-hidden hero-gradient">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="relative z-10 glass-panel p-10 max-w-5xl w-full">
+
+            <!-- Logos and Header Info -->
+            <div
+                class="flex flex-col md:flex-row items-center justify-between w-full mb-8 border-b border-gray-700/50 pb-6">
+                <img src="img/Escudo_UNSA.png.webp" alt="Logo UNSA" class="h-20 md:h-24 object-contain mb-4 md:mb-0"
+                    onerror="this.src='https://placehold.co/150x150/1e293b/a3a3a3?text=Logo+UNSA'">
+
+                <div class="flex-1 px-4">
+                    <h2 class="text-xl md:text-2xl font-semibold text-blue-400 mb-1 tracking-wider uppercase">
+                        Universidad Nacional de San Agustín</h2>
+                    <h3 class="text-lg md:text-xl text-purple-300">Escuela Profesional de Ingeniería de
+                        Telecomunicaciones</h3>
+                </div>
+
+                <img src="img/Logo-EPIT-v2-cuadrado.png" alt="Logo Telecom"
+                    class="h-20 md:h-24 object-contain mt-4 md:mt-0"
+                    onerror="this.src='https://placehold.co/150x150/1e293b/a3a3a3?text=Logo+Telecom'">
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-lg leading-tight">Laboratorio
+                1:<br><span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Representación y
+                    Análisis de Señales</span></h1>
+            <p class="text-xl text-gray-300 mb-8 font-light">Curso: Señales y Sistemas</p>
+            <a href="#intro"
+                class="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+                Iniciar Exploración
+            </a>
+        </div>
+
+        <!-- Animated Background Elements -->
+        <div class="absolute w-96 h-96 bg-blue-500 rounded-full blur-[100px] opacity-20 -top-20 -left-20 animate-pulse">
+        </div>
+        <div class="absolute w-96 h-96 bg-purple-500 rounded-full blur-[100px] opacity-20 -bottom-20 -right-20 animate-pulse"
+            style="animation-delay: 2s;"></div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-8 py-12 max-w-7xl">
+
+        <!-- Sección Introductoria -->
+        <section id="intro" class="mb-20 pt-10">
+            <h2 class="text-3xl font-bold mb-10 text-center border-b border-gray-700 pb-4"><span
+                    class="text-blue-400">1.</span> Conceptos Previos y Funciones MATLAB</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Concept Card 1 -->
+                <div class="glass-card p-6 rounded-2xl hover-lift">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Adquisición</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Tasa a la que se toman muestras de una señal para convertirla
+                        en discreta (\( F_s \)).</p>
+                    <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+                        <code class="text-xs text-blue-300 font-mono">[x, Fs] = audioread('file.wav')</code>
+                        <p class="text-xs text-gray-500 mt-1">Carga el audio y extrae la frecuencia de muestreo.</p>
+                    </div>
+                </div>
+
+                <!-- Concept Card 2 -->
+                <div class="glass-card p-6 rounded-2xl hover-lift">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Energía y Potencia</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">La Energía es la intensidad total. Potencia es la energía
+                        promedio por muestra.</p>
+                    <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+                        <code class="text-xs text-green-300 font-mono">sum(x.^2)</code><br>
+                        <code class="text-xs text-green-300 font-mono">mean(x.^2)</code>
+                        <p class="text-xs text-gray-500 mt-1">Calculan la energía y la potencia respectivamente.</p>
+                    </div>
+                </div>
+
+                <!-- Concept Card 3 -->
+                <div class="glass-card p-6 rounded-2xl hover-lift">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white">Transformaciones</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Operaciones en dominio temporal y de amplitud aplicadas a
+                        vectores discretos.</p>
+                    <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+                        <code class="text-xs text-purple-300 font-mono">flip(x)</code><br>
+                        <code class="text-xs text-purple-300 font-mono">[zeros(N,1); x]</code>
+                        <p class="text-xs text-gray-500 mt-1">Inversión y desplazamiento agregando muestras nulas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2.1 - Adquisición de Señales -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.1</span> Adquisición de Señales
+                Reales</h2>
+            <div class="glass-panel p-8">
+                <p class="text-gray-300 mb-6 text-lg">Lectura de archivos de audio, conversión a monocanal y
+                    estructuración matemática del vector de tiempo digital para 4 tipos de señales grabadas a \(
+                    48\text{ kHz} \).</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div
+                        class="bg-gray-800/60 p-4 rounded-xl flex flex-col items-center justify-center border border-gray-700 hover:border-blue-500 transition-colors">
+                        <h4 class="text-white font-semibold mb-3">Vocal "a"</h4>
+                        <audio controls class="w-full custom-audio h-10">
+                            <source src="audio/Vocal_a.wav" type="audio/wav">
+                        </audio>
+                    </div>
+                    <div
+                        class="bg-gray-800/60 p-4 rounded-xl flex flex-col items-center justify-center border border-gray-700 hover:border-blue-500 transition-colors">
+                        <h4 class="text-white font-semibold mb-3">Frase</h4>
+                        <audio controls class="w-full custom-audio h-10">
+                            <source src="audio/Frase.wav" type="audio/wav">
+                        </audio>
+                    </div>
+                    <div
+                        class="bg-gray-800/60 p-4 rounded-xl flex flex-col items-center justify-center border border-gray-700 hover:border-blue-500 transition-colors">
+                        <h4 class="text-white font-semibold mb-3">Aplauso</h4>
+                        <audio controls class="w-full custom-audio h-10">
+                            <source src="audio/Aplauso.wav" type="audio/wav">
+                        </audio>
+                    </div>
+                    <div
+                        class="bg-gray-800/60 p-4 rounded-xl flex flex-col items-center justify-center border border-gray-700 hover:border-blue-500 transition-colors">
+                        <h4 class="text-white font-semibold mb-3">Ruido Ambiente</h4>
+                        <audio controls class="w-full custom-audio h-10">
+                            <source src="audio/Ruido.wav" type="audio/wav">
+                        </audio>
+                    </div>
+                </div>
+
+
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6 items-stretch">
+
+                    <!-- Columna Izquierda: Código -->
+                    <div class="code-container rounded-xl overflow-hidden shadow-2xl flex flex-col h-full">
+                        <div class="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_ADQUISISION.m</span>
+                        </div>
+                        <pre class="!m-0 flex-1 whitespace-pre-wrap break-words"><code class="language-matlab">% 2.1 Adquisicion y Vectores de Tiempo
+archivos = {'Vocal_a.wav', 'Frase.wav', 'Aplauso.wav', 'Ruido.wav'};
+nombres = {'Vocal "a"', 'Frase "Señales y Sistemas"', 'Aplauso', 'Ruido Ambiente'};
+
+figure('Name', 'Señales Reales en el Dominio del Tiempo', 'NumberTitle', 'off');
+
+for k = 1:length(archivos)
+    [x, Fs] = audioread(archivos{k});
+    
+    % Conversion a mono si es estereo
+    if size(x, 2) > 1
+        x = mean(x, 2);
+    end
+    
+    N = length(x);
+    T_dur = N / Fs; % Duracion teorica
+    t = (0:N-1) / Fs; % Vector de tiempo
+    t_ultimo = t(end); % Ultimo valor temporal
+    
+    fprintf('--- %s ---\n', nombres{k});
+    fprintf('Fs: %d Hz | Muestras (N): %d\n', Fs, N);
+    fprintf('Duracion teorica (T = N/Fs): %.6f s\n', T_dur);
+    fprintf('Ultimo valor de t (t[N-1]): %.6f s\n', t_ultimo);
+    fprintf('Diferencia (T - t[N-1]): %.6f s (1/Fs = %.6f s)\n\n', T_dur - t_ultimo, 1/Fs);
+    
+    % Grafica
+    subplot(4, 1, k);
+    plot(t, x, 'Color', [0 0.4470 0.7410]);
+    title(sprintf('Señal: %s', nombres{k}));
+    xlabel('Tiempo (s)');
+    ylabel('Amplitud normalizada');
+    grid on;
+    xlim([0 max(t)]);
+end</code></pre>
+                    </div>
+
+                    <!-- Columna Derecha: Resultados y Gráfica -->
+                    <div class="flex flex-col bg-cardBg/50 border border-gray-700/50 rounded-xl p-4 h-full">
+                        <div class="mb-4">
+                            <h3 class="text-xl font-semibold mb-3 text-white">Resultados de Ejecución</h3>
+                            <div
+                                class="bg-black/80 rounded-xl p-4 border border-gray-700 overflow-x-auto font-mono text-sm text-green-400">
+                                <pre>--- Vocal "a" ---
+Fs: 48000 Hz | Muestras (N): 128000
+Duración teórica (T = N/Fs): 2.666667 s
+Último valor de t (t[N-1]):  2.666646 s
+Diferencia (T - t[N-1]):     0.000021 s (1/Fs = 0.000021 s)
+
+--- Frase "Señales y Sistemas" ---
+Fs: 48000 Hz | Muestras (N): 151552
+Duración teórica (T = N/Fs): 3.157333 s
+Último valor de t (t[N-1]):  3.157313 s
+Diferencia (T - t[N-1]):     0.000021 s (1/Fs = 0.000021 s)
+
+--- Aplauso ---
+Fs: 48000 Hz | Muestras (N): 121856
+Duración teórica (T = N/Fs): 2.538667 s
+Último valor de t (t[N-1]):  2.538646 s
+Diferencia (T - t[N-1]):     0.000021 s (1/Fs = 0.000021 s)
+
+--- Ruido Ambiente ---
+Fs: 48000 Hz | Muestras (N): 266240
+Duración teórica (T = N/Fs): 5.546667 s
+Último valor de t (t[N-1]):  5.546646 s
+Diferencia (T - t[N-1]):     0.000021 s (1/Fs = 0.000021 s)</pre>
+                            </div>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center mt-2">
+                            <img src="img/adquisision.png" alt="Gráficas de Adquisición de Señales"
+                                class="rounded-lg shadow-lg mb-4 w-full h-auto object-cover border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity mt-auto"
+                                onclick="openLightbox(this.src)"
+                                onerror="this.src='https://placehold.co/800x400/1e293b/a3a3a3?text=Placeholder+figura_2_1.png'">
+                            <p class="text-sm text-gray-400 text-center mt-auto">Figura 2.1: Representación en el
+                                dominio del tiempo de las cuatro señales adquiridas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2.2 - Ampliaciones -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.2</span> Ampliaciones
+                Temporales (Zoom)</h2>
+            <div class="glass-panel p-8">
+
+                <p class="text-gray-300 mb-6 text-lg">Para clasificar las señales, se analizan ventanas temporales
+                    específicas (microescalas) que permiten visualizar su estructura fundamental.</p>
+
+                <div class="code-container rounded-xl overflow-hidden shadow-2xl">
+                    <div class="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_AMPLIACION_TEMPORAL.m</span>
+                    </div>
+                    <pre class="!m-0 whitespace-pre-wrap break-words"><code class="language-matlab">% 2.2 Ampliaciones Temporales
+figure('Name', 'Observacion en Escalas Temporales Detalladas', 'NumberTitle', 'off');
+
+% 1. Vocal "a" (Zoom de 20 ms en una zona central, ej. t = 1.0 s a 1.02 s)
+[x_a, Fs] = audioread('Vocal_a.wav'); if size(x_a,2)>1, x_a=mean(x_a,2); end
+t_a = (0:length(x_a)-1)/Fs;
+t_ini_a = 1.0;
+idx_a = (t_a >= t_ini_a) & (t_a <= t_ini_a + 0.020);
+
+subplot(4,1,1);
+plot(t_a(idx_a), x_a(idx_a), 'LineWidth', 1.2);
+title('Vocal "a" - Ventana de 20 ms');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+
+% 2. Frase hablada (Zoom de 100 ms donde haya voz activa, ej. t = 1.2 s a 1.3 s)
+[x_f, Fs] = audioread('frase.wav'); if size(x_f,2)>1, x_f=mean(x_f,2); end
+t_f = (0:length(x_f)-1)/Fs;
+t_ini_f = 1.2;
+idx_f = (t_f >= t_ini_f) & (t_f <= t_ini_f + 0.100);
+
+subplot(4,1,2);
+plot(t_f(idx_f), x_f(idx_f), 'LineWidth', 1.2, 'Color', [0.85 0.325 0.098]);
+title('Frase "Senales y Sistemas" - Ventana de 100 ms');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+
+% 3. Aplauso (Zoom sobre el evento impulsivo principal)
+[x_ap, Fs] = audioread('aplauso.wav'); if size(x_ap,2)>1, x_ap=mean(x_ap,2); end
+t_ap = (0:length(x_ap)-1)/Fs;
+[~, idx_max] = max(abs(x_ap));
+t_pico = t_ap(idx_max);
+idx_ap = (t_ap >= t_pico - 0.02) & (t_ap <= t_pico + 0.08); % 100 ms alrededor del golpe
+
+subplot(4,1,3);
+plot(t_ap(idx_ap), x_ap(idx_ap), 'LineWidth', 1.2, 'Color', [0.466 0.674 0.188]);
+title('Aplauso - Transitorio Principal');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+
+% 4. Ruido Ambiente (Zoom de 100 ms)
+[x_ru, Fs] = audioread('ruido.wav'); if size(x_ru,2)>1, x_ru=mean(x_ru,2); end
+t_ru = (0:length(x_ru)-1)/Fs;
+t_ini_ru = 2.0;
+idx_ru = (t_ru >= t_ini_ru) & (t_ru <= t_ini_ru + 0.100);
+
+subplot(4,1,4);
+plot(t_ru(idx_ru), x_ru(idx_ru), 'LineWidth', 1.2, 'Color', [0.494 0.184 0.556]);
+title('Ruido Ambiente - Ventana de 100 ms');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;</code></pre>
+                </div>
+                <div
+                    class="flex flex-col justify-center items-center bg-cardBg/50 border border-gray-700/50 rounded-xl p-4 mb-8">
+                    <img src="img/escalas_temporales.png" alt="Gráficas de Ampliaciones Temporales (Zoom)"
+                        class="rounded-lg shadow-lg mb-4 w-full max-w-4xl h-auto object-cover border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity"
+                        onclick="openLightbox(this.src)"
+                        onerror="this.src='https://placehold.co/800x400/1e293b/a3a3a3?text=Resultados+de+la+grafica+Zoom'">
+                    <p class="text-sm text-gray-400 text-center">Figura 2.2: Observación de las señales en microescalas
+                        temporales (Zoom de 20 ms y 100 ms).</p>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- Sección 2.3 - Análisis y Caracterización -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.3</span> Caracterización Básica
+            </h2>
+            <div class="glass-panel p-8">
+
+                <div class="mb-8">
+                    <p class="text-gray-300 mb-6">Métricas fundamentales para evaluar la energía y la distribución de
+                        amplitud de los arreglos discretos, aplicando las formulaciones matemáticas sobre MATLAB.</p>
+
+                    <div
+                        class="bg-gray-800/50 p-6 rounded-xl border border-gray-700 mb-6 overflow-x-auto flex justify-center items-center gap-8 text-lg">
+                        <div>\( A_{\max} = \max |x[n]| \)</div>
+                        <div>\( \mu_x = \frac{1}{N} \sum_{n=0}^{N-1} x[n] \)</div>
+                        <div>\( E_x = \sum_{n=0}^{N-1} |x[n]|^2 \)</div>
+                        <div>\( P_x = \frac{1}{N} \sum_{n=0}^{N-1} |x[n]|^2 \)</div>
+                    </div>
+                </div>
+
+
+
+                <div class="overflow-x-auto shadow-2xl rounded-xl mb-10">
+                    <table class="w-full text-left text-sm text-gray-300 border-collapse">
+                        <thead class="text-xs text-white uppercase bg-gradient-to-r from-blue-600 to-purple-600">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 rounded-tl-xl">Señal</th>
+                                <th scope="col" class="px-6 py-4">\(N\)</th>
+                                <th scope="col" class="px-6 py-4">\(T\) (s)</th>
+                                <th scope="col" class="px-6 py-4">\(A_{\max}\)</th>
+                                <th scope="col" class="px-6 py-4">\(x_{\text{RMS}}\)</th>
+                                <th scope="col" class="px-6 py-4">Energía (\(E_x\))</th>
+                                <th scope="col" class="px-6 py-4 rounded-tr-xl">Potencia (\(P_x\))</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-cardBg divide-y divide-gray-700">
+                            <tr class="hover:bg-gray-800/50 transition-colors">
+                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">Vocal "a"
+                                </th>
+                                <td class="px-6 py-4">128000</td>
+                                <td class="px-6 py-4">2.6667</td>
+                                <td class="px-6 py-4">0.304199</td>
+                                <td class="px-6 py-4">0.053613</td>
+                                <td class="px-6 py-4 text-blue-300">367.9119</td>
+                                <td class="px-6 py-4 text-purple-300">0.002874</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50 transition-colors">
+                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">Frase</th>
+                                <td class="px-6 py-4">151552</td>
+                                <td class="px-6 py-4">3.1573</td>
+                                <td class="px-6 py-4">0.276978</td>
+                                <td class="px-6 py-4">0.042330</td>
+                                <td class="px-6 py-4 text-blue-300">271.5508</td>
+                                <td class="px-6 py-4 text-purple-300">0.001792</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50 transition-colors">
+                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">Aplauso</th>
+                                <td class="px-6 py-4">121856</td>
+                                <td class="px-6 py-4">2.5387</td>
+                                <td class="px-6 py-4">1.000000</td>
+                                <td class="px-6 py-4">0.118192</td>
+                                <td class="px-6 py-4 text-blue-300 font-bold">1702.2377</td>
+                                <td class="px-6 py-4 text-purple-300 font-bold">0.013969</td>
+                            </tr>
+                            <tr class="hover:bg-gray-800/50 transition-colors">
+                                <th scope="row" class="px-6 py-4 font-medium text-white whitespace-nowrap">Ruido</th>
+                                <td class="px-6 py-4">266240</td>
+                                <td class="px-6 py-4">5.5467</td>
+                                <td class="px-6 py-4">0.175354</td>
+                                <td class="px-6 py-4">0.014988</td>
+                                <td class="px-6 py-4 text-blue-300">59.8063</td>
+                                <td class="px-6 py-4 text-purple-300">0.000225</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="code-container rounded-xl overflow-hidden shadow-2xl">
+                    <div class="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_CARACTERIZACION_DE_SENALES.m</span>
+                    </div>
+                    <pre class="!m-0 whitespace-pre-wrap break-words"><code class="language-matlab">% 2.3 Calculo de Parametros Basicos
+archivos = {'Vocal_a.wav', 'Frase.wav', 'Aplauso.wav', 'Ruido.wav'};
+nombres = {'Vocal "a"', 'Frase', 'Aplauso', 'Ruido Ambiente'};
+
+% Imprimir el encabezado de la tabla en la consola
+fprintf('%-18s %-8s %-10s %-10s %-10s %-12s %-12s %-12s %-12s\n', ...
+    'Señal', 'Fs [Hz]', 'N', 'T [s]', 'A_max', 'mu_x', 'x_RMS', 'E_x', 'P_x');
+fprintf(repmat('-', 1, 110));
+fprintf('\n');
+
+for k = 1:length(archivos)
+    % 1. Cargar el audio
+    [x, Fs] = audioread(archivos{k});
+    
+    % 2. Estereo a mono
+    if size(x, 2) > 1
+        x = mean(x, 2); % Promedia los canales para dejar un solo vector unidimensional
+    end
+    
+    % 3. Calculos de parametros temporales
+    N = length(x);
+    T = N / Fs;
+    
+    % 4. Caracterizacion matematica aplicando estrictamente las formulas de la guia
+    A_max = max(abs(x));          % Valor maximo absoluto
+    mu_x = (1/N) * sum(x);        % Valor medio
+    E_x = sum(x.^2);              % Energia total
+    P_x = (1/N) * sum(x.^2);      % Potencia promedio
+    x_RMS = sqrt((1/N) * sum(x.^2)); % Valor RMS
+    
+    % 5. Imprimir la fila correspondiente con los resultados alineados
+    fprintf('%-18s %-8d %-10d %-10.4f %-10.6f %-12.6f %-12.6f %-12.6f %-12.6f\n', ...
+        nombres{k}, Fs, N, T, A_max, mu_x, x_RMS, E_x, P_x);
+end</code></pre>
+                </div>
+                <br>
+                <br>
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Resultados de Ejecución</h3>
+                    <div
+                        class="bg-black/80 rounded-xl p-4 border border-gray-700 overflow-x-auto font-mono text-sm text-green-400">
+                        <pre>Señal              Fs [Hz]  N          T [s]      A_max      mu_x         x_RMS        E_x          P_x         
+--------------------------------------------------------------------------------------------------------------
+Vocal "a"          48000    128000     2.6667     0.304199   -0.000074    0.053613     367.911980   0.002874    
+Frase              48000    151552     3.1573     0.276978   -0.000021    0.042330     271.550849   0.001792    
+Aplauso            48000    121856     2.5387     1.000000   0.012073     0.118192     1702.237799  0.013969    
+Ruido Ambiente     48000    266240     5.5467     0.175354   -0.000038    0.014988     59.806397    0.000225    </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2.4 - Transformaciones (Interactiva) -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.4</span> Transformaciones de
+                Señales</h2>
+            <p class="text-gray-300 text-lg mb-8">Aplicadas sobre la frase <span class="italic text-white">"Señales y
+                    Sistemas"</span>. Explore el efecto visual, matemático y sonoro de cada operación.</p>
+
+
+            <div class="code-container rounded-xl overflow-hidden shadow-2xl">
+                <div class="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_ESCALAMIENTO.m</span>
+                </div>
+                <pre class="!m-0 whitespace-pre-wrap break-words"><code class="language-matlab">% 2.4 Transformaciones (Amplitud y Tiempo)
+
+%% 1. CARGA DE LA SENAL ORIGINAL
+nombre_archivo = 'Frase.wav';
+[x, Fs] = audioread(nombre_archivo);
+
+% Convertir a mono si la senal original tiene dos canales (estereo)
+if size(x, 2) > 1
+    x = mean(x, 2);
+end
+
+N = length(x);
+t = (0:N-1) / Fs; % Vector de tiempo en segundos
+
+% Energia y potencia de la senal original
+Ex = sum(x.^2);
+Px = sum(x.^2) / N;
+
+fprintf('--- SENAL ORIGINAL ---\n');
+fprintf('Energia (Ex): %f\n', Ex);
+fprintf('Potencia (Px): %f\n\n', Px);
+
+%% 2.4.1. ESCALAMIENTO DE AMPLITUD
+a1 = 0.5;
+a2 = 2;
+x1 = a1 * x;
+x2 = a2 * x;
+
+% Calculos experimentales de la Energia
+Ex1_exp = sum(x1.^2);
+Ex2_exp = sum(x2.^2);
+
+% Comprobacion teorica: E_ax = a^2 * E_x
+Ex1_teo = (a1^2) * Ex;
+Ex2_teo = (a2^2) * Ex;
+
+fprintf('--- ESCALAMIENTO DE AMPLITUD ---\n');
+fprintf('x1 (a=0.5): E_exp = %f | E_teo = %f\n', Ex1_exp, Ex1_teo);
+fprintf('x2 (a=2.0): E_exp = %f | E_teo = %f\n\n', Ex2_exp, Ex2_teo);
+
+% Graficar Escalamiento
+figure('Name', '2.4.1 - Escalamiento de Amplitud');
+subplot(3,1,1);
+plot(t, x, 'b'); title('Senal Original x[n]');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+subplot(3,1,2);
+plot(t, x1, 'g'); title('x_1[n] = 0.5 \cdot x[n]');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+subplot(3,1,3);
+plot(t, x2, 'r'); title('x_2[n] = 2 \cdot x[n]');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+
+%% 2.4.2 y 2.4.3. INVERSIONES (AMPLITUD Y TEMPORAL)
+x3 = -x;            % Inversion de amplitud
+x4 = flip(x);       % Inversion temporal (x[N-1-n])
+
+Ex3 = sum(x3.^2);
+Ex4 = sum(x4.^2);
+
+fprintf('--- INVERSIONES ---\n');
+fprintf('Energia Inversion Amplitud (x3): %f\n', Ex3);
+fprintf('Energia Inversion Temporal (x4): %f\n\n', Ex4);
+
+% Graficar Inversiones
+figure('Name', '2.4.2 y 2.4.3 - Inversion de Amplitud y Temporal');
+subplot(3,1,1);
+plot(t, x, 'b'); title('Senal Original x[n]');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+subplot(3,1,2);
+plot(t, x3, 'm'); title('Inversion de Amplitud x_3[n] = -x[n]');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+subplot(3,1,3);
+plot(t, x4, 'k'); title('Inversion Temporal x_4[n] = x[N-1-n]');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+
+%% 2.4.4. DESPLAZAMIENTO TEMPORAL (Retardo de 0.5 s)
+t_d = 0.5;
+N_d = round(t_d * Fs);
+
+% Agregamos Nd muestras de valor cero al inicio de la senal original
+x5 = [zeros(N_d, 1); x];
+t5 = (0:length(x5)-1) / Fs;
+
+% Graficar Desplazamiento
+figure('Name', '2.4.4 - Desplazamiento Temporal');
+subplot(2,1,1);
+plot(t, x, 'b'); title('Senal Original x[n]');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on; xlim([0 max(t5)]);
+subplot(2,1,2);
+plot(t5, x5, 'Color', [0.8500 0.3250 0.0980]);
+title('Senal Desplazada x_5[n] (Retardo 0.5 s)');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on; xlim([0 max(t5)]);</code></pre>
+            </div>
+
+            <div class="mb-8 mt-8">
+                <h3 class="text-xl font-semibold mb-4 text-white">Resultados de Ejecución</h3>
+                <div
+                    class="bg-black/80 rounded-xl p-4 border border-gray-700 overflow-x-auto font-mono text-sm text-green-400 leading-relaxed">
+                    <pre>--- SEÑAL ORIGINAL ---
+Energía (Ex): 271.550849
+Potencia (Px): 0.001792
+
+--- ESCALAMIENTO DE AMPLITUD ---
+x1 (a=0.5): E_exp = 67.887712 | E_teo = 67.887712 (Diferencia: 0.000000)
+x2 (a=2.0): E_exp = 1086.203398 | E_teo = 1086.203398 (Diferencia: 0.000000)
+
+--- INVERSIONES ---
+Energía Inversión Amplitud (x3): 271.550849 (Igual a Ex: 1)
+Energía Inversión Temporal (x4): 271.550849 (Igual a Ex: 1)
+
+Reproduciendo: Señal Original x[n]...
+Reproduciendo: Escalamiento x1[n] = 0.5*x[n] (Menor volumen)...
+Reproduciendo: Escalamiento x2[n] = 2*x[n] (Mayor volumen / Posible saturación)...
+Reproduciendo: Inversión de amplitud x3[n] = -x[n] (Suena igual)...
+Reproduciendo: Inversión temporal x4[n] = x[N-1-n] (Al revés)...
+Reproduciendo: Desplazamiento x5[n] (Silencio inicial de 0.5s)...
+Fin de la reproducción.</pre>
+                </div>
+            </div>
+            <div
+                class="glass-card rounded-2xl overflow-hidden hover-lift border border-gray-700/50 flex flex-col mb-10 max-w-4xl mx-auto">
+                <div class="bg-gradient-to-r from-gray-700/80 to-gray-800/80 p-4 border-b border-gray-700">
+                    <h3 class="text-xl font-bold text-white text-center">Señal Original</h3>
+                </div>
+                <div class="p-6 flex flex-col justify-center items-center">
+                    <img src="img/senal_original.png" alt="Señal Original"
+                        class="rounded-lg shadow-lg mb-4 w-full h-auto object-cover border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity"
+                        onclick="openLightbox(this.src)"
+                        onerror="this.src='https://placehold.co/800x400/1e293b/a3a3a3?text=Resultados+de+la+grafica+Zoom'">
+                    <p class="text-sm text-gray-400 text-center">Señal original de la frase "Señales y Sistemas".</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-10">
+                <!-- Card 1: Escalamiento -->
+                <div class="glass-card rounded-2xl overflow-hidden hover-lift border border-gray-700/50 flex flex-col">
+                    <div class="bg-gradient-to-r from-blue-600/80 to-blue-800/80 p-4 border-b border-gray-700">
+                        <h3 class="text-xl font-bold text-white">Escalamiento de Amplitud</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div
+                            class="text-lg bg-gray-900/80 px-4 py-2 rounded-lg border border-gray-700 mb-4 inline-block text-center mx-auto">
+                            \( x_1[n] = 0.5 \cdot x[n] \) &nbsp;|&nbsp; \( x_2[n] = 2 \cdot x[n] \)
+                        </div>
+                        <img src="img/esccc_ampli.png" alt="Escalamiento"
+                            class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity"
+                            onclick="openLightbox(this.src)"
+                            onerror="this.src='https://placehold.co/600x300/1e293b/a3a3a3?text=Gráfica+Escalamiento'">
+                        <div class="space-y-3 mt-auto">
+                            <div class="bg-gray-800/60 p-3 rounded-lg flex items-center justify-between">
+                                <span class="text-sm text-gray-300">Original</span>
+                                <audio controls class="h-8 custom-audio">
+                                    <source src="audio/frase.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                            <div class="bg-gray-800/60 p-3 rounded-lg flex items-center justify-between">
+                                <span class="text-sm text-gray-300">Atenuada (\(x_1\))</span>
+                                <audio controls class="h-8 custom-audio">
+                                    <source src="audio/escalamiento_05.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                            <div class="bg-gray-800/60 p-3 rounded-lg flex items-center justify-between">
+                                <span class="text-sm text-gray-300">Amplificada (\(x_2\))</span>
+                                <audio controls class="h-8 custom-audio">
+                                    <source src="audio/escalamiento_2.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Inversión Amplitud -->
+                <div class="glass-card rounded-2xl overflow-hidden hover-lift border border-gray-700/50 flex flex-col">
+                    <div class="bg-gradient-to-r from-purple-600/80 to-purple-800/80 p-4 border-b border-gray-700">
+                        <h3 class="text-xl font-bold text-white">Inversión de Amplitud</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div
+                            class="text-lg bg-gray-900/80 px-4 py-2 rounded-lg border border-gray-700 mb-4 inline-block text-center mx-auto">
+                            \( x_3[n] = -x[n] \)
+                        </div>
+                        <img src="img/inv_ampli.png" alt="Inversión Amplitud"
+                            class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity"
+                            onclick="openLightbox(this.src)"
+                            onerror="this.src='https://placehold.co/600x300/1e293b/a3a3a3?text=Gráfica+Inversión+Amplitud'">
+                        <p class="text-sm text-gray-400 mb-4 italic text-center">El oído humano es insensible a cambios
+                            puros de fase. No hay diferencia audible.</p>
+                        <div class="bg-gray-800/60 p-3 rounded-lg flex items-center justify-between mt-auto">
+                            <span class="text-sm text-gray-300">Señal Invertida</span>
+                            <audio controls class="h-8 custom-audio">
+                                <source src="audio/inv_amplitud.wav" type="audio/wav">
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Inversión Temporal -->
+                <div class="glass-card rounded-2xl overflow-hidden hover-lift border border-gray-700/50 flex flex-col">
+                    <div class="bg-gradient-to-r from-green-600/80 to-green-800/80 p-4 border-b border-gray-700">
+                        <h3 class="text-xl font-bold text-white">Inversión Temporal</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div
+                            class="text-lg bg-gray-900/80 px-4 py-2 rounded-lg border border-gray-700 mb-4 inline-block text-center mx-auto">
+                            \( x_4[n] = x[N-1-n] \)
+                        </div>
+                        <img src="img/inv_tempo.png" alt="Inversión Temporal"
+                            class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity"
+                            onclick="openLightbox(this.src)"
+                            onerror="this.src='https://placehold.co/600x300/1e293b/a3a3a3?text=Gráfica+Inversión+Temporal'">
+                        <p class="text-sm text-gray-400 mb-4 italic text-center">Se escucha el audio "al revés".
+                            Transformación dramática y audible.</p>
+                        <div class="bg-gray-800/60 p-3 rounded-lg flex items-center justify-between mt-auto">
+                            <span class="text-sm text-gray-300">Señal Invertida</span>
+                            <audio controls class="h-8 custom-audio">
+                                <source src="audio/inv_temporal.wav" type="audio/wav">
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Desplazamiento Temporal -->
+                <div class="glass-card rounded-2xl overflow-hidden hover-lift border border-gray-700/50 flex flex-col">
+                    <div class="bg-gradient-to-r from-red-600/80 to-red-800/80 p-4 border-b border-gray-700">
+                        <h3 class="text-xl font-bold text-white">Desplazamiento Temporal</h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div
+                            class="text-lg bg-gray-900/80 px-4 py-2 rounded-lg border border-gray-700 mb-4 inline-block text-center mx-auto">
+                            \( x_5[n] = x[n - N_d] \)
+                        </div>
+                        <img src="img/desplazam_temp.png" alt="Desplazamiento"
+                            class="w-full h-48 object-cover rounded-lg mb-4 border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity"
+                            onclick="openLightbox(this.src)"
+                            onerror="this.src='https://placehold.co/600x300/1e293b/a3a3a3?text=Gráfica+Desplazamiento+0.5s'">
+                        <p class="text-sm text-gray-400 mb-4 italic text-center">Introduce un silencio al inicio. La
+                            potencia disminuye al añadir ceros, la energía se mantiene.</p>
+                        <div class="bg-gray-800/60 p-3 rounded-lg flex items-center justify-between mt-auto">
+                            <span class="text-sm text-gray-300">Señal Retardada</span>
+                            <audio controls class="h-8 custom-audio">
+                                <source src="audio/desplazamiento.wav" type="audio/wav">
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- Sección 2.5 - Identificación a Ciegas -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.5</span> Identificación a
+                Ciegas</h2>
+            <div class="glass-panel p-8 relative overflow-hidden">
+                <!-- Decorative element -->
+                <div
+                    class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-yellow-500 rounded-full blur-[80px] opacity-20 pointer-events-none">
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10 mb-8">
+                    <div class="lg:col-span-7">
+                        <p class="text-gray-300 mb-4 text-lg">Se proporcionó una señal desconocida <code
+                                class="bg-gray-800 px-2 py-1 rounded text-yellow-400">DDDD.wav</code>. El objetivo fue
+                            identificarla <strong>sin escucharla</strong>, basándose únicamente en sus parámetros
+                            matemáticos y comportamiento macro/micro temporal.</p>
+
+                        <img src="img/senal_desc.png" alt="Señal Misteriosa"
+                            class="w-full rounded-lg shadow-md border border-gray-700 cursor-pointer hover:opacity-80 transition-opacity"
+                            onclick="openLightbox(this.src)"
+                            onerror="this.src='https://placehold.co/800x300/1e293b/a3a3a3?text=Forma+de+Onda+Desconocida'">
+                    </div>
+
+                    <div class="lg:col-span-5 flex flex-col justify-center">
+                        <div class="bg-gray-900/80 border border-gray-700 p-6 rounded-2xl shadow-xl mb-6">
+                            <h4 class="text-xl font-bold text-yellow-400 mb-4 border-b border-gray-700 pb-2">Parámetros
+                                Observados</h4>
+                            <ul class="space-y-3 text-gray-300 font-mono text-sm">
+                                <li class="flex justify-between"><span>Duración (T):</span> <span
+                                        class="text-white">3.0000 s</span></li>
+                                <li class="flex justify-between"><span>Amplitud Máx (\(A_{\max}\)):</span> <span
+                                        class="text-white">0.970703</span></li>
+                                <li class="flex justify-between"><span>Valor RMS:</span> <span
+                                        class="text-white">0.045049</span></li>
+                                <li class="flex justify-between"><span>Energía (\(E_x\)):</span> <span
+                                        class="text-white">268.4903</span></li>
+                            </ul>
+                            <div class="mt-4 pt-4 border-t border-gray-700">
+                                <p class="text-sm text-gray-400 italic">Observación: Alta energía concentrada en un
+                                    evento transitorio violento y rápida disipación. Comportamiento impulsivo.</p>
+                            </div>
+                        </div>
+
+                        <!-- Botón Interactivo -->
+                        <div class="text-center">
+                            <button id="revealBtn"
+                                class="w-full py-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-bold text-lg rounded-xl shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-all transform hover:-translate-y-1 active:translate-y-0">
+                                Revelar y Reproducir Predicción
+                            </button>
+
+                            <!-- Player oculto -->
+                            <div id="revealContainer"
+                                class="hidden mt-6 bg-gray-800/80 border border-yellow-500/50 p-4 rounded-xl animate-fade-in">
+                                <h5 class="text-xl font-bold text-green-400 mb-2">¡Es el Aplauso!</h5>
+                                <p class="text-sm text-gray-300 mb-4">La ráfaga caótica inicial y el decaimiento rápido
+                                    son característicos de un impacto físico.</p>
+                                <audio controls class="w-full custom-audio">
+                                    <source src="audio/DDDD.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Codigo 5 -->
+                <div class="code-container rounded-xl overflow-hidden shadow-2xl">
+                    <div class="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_SENAL_DESCONOCIDA.m</span>
+                    </div>
+                    <pre class="!m-0 whitespace-pre-wrap break-words"><code class="language-matlab">% SECCION 2.5: IDENTIFICACION DE SEÑAL DESCONOCIDA (ANALISIS A CIEGAS)
+clc; clear; close all;
+
+% 1. Cargar el audio incognita
+archivo_incognita = 'DDDD.wav';
+[x, Fs] = audioread(archivo_incognita);
+
+% Validacion a mono
+if size(x, 2) > 1
+    x = mean(x, 2);
+end
+
+% 2. Calculos temporales y matematicos
+N = length(x);
+T = N / Fs;
+t = (0:N-1) / Fs;
+
+A_max = max(abs(x));
+x_RMS = sqrt((1/N) * sum(x.^2));
+E_x = sum(x.^2);
+
+% 3. Imprimir parametros para redactar la justificacion
+fprintf('=======================================\n');
+fprintf('--- ANALISIS PARAMETRICO (A CIEGAS) ---\n');
+fprintf('=======================================\n');
+fprintf('Duracion (T)       : %.4f segundos\n', T);
+fprintf('Amplitud Maxima    : %.6f\n', A_max);
+fprintf('Valor RMS          : %.6f\n', x_RMS);
+fprintf('Energia (E_x)      : %.4f\n', E_x);
+fprintf('=======================================\n\n');
+
+% 4. Analisis Grafico (Dominio del tiempo y Zoom)
+figure('Name', 'Seccion 2.5 - Analisis de Señal Desconocida');
+
+% Subplot 1: Forma de onda completa
+subplot(2,1,1);
+plot(t, x, 'Color', [0.4660 0.6740 0.1880]);
+title('Forma de Onda Completa (Macroscopica)');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on; xlim([0 max(t)]);
+
+% Subplot 2: Comportamiento en microescala (Zoom de 100 ms automatico en el pico)
+[~, idx_max] = max(abs(x));
+t_pico = t(idx_max);
+idx_zoom = (t >= t_pico - 0.02) & (t <= t_pico + 0.08); % Ventana de 100 ms
+
+subplot(2,1,2);
+plot(t(idx_zoom), x(idx_zoom), 'Color', [0.8500 0.3250 0.0980]);
+title('Microescala (Zoom automatico de 100 ms en la mayor concentracion de energia)');
+xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;
+
+% 5. COMPROBACION FINAL 
+disp('Presione la tecla ENTER en esta ventana de comandos para reproducir el audio y comprobar su prediccion...');
+pause; % El script se detiene aqui hasta que presiones Enter
+
+disp('Reproduciendo señal incognita...');
+sound(x, Fs);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Conclusiones -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">3.</span> Conclusiones y Análisis
+            </h2>
+            <div class="glass-panel p-8">
+                <p class="text-gray-300 text-lg mb-6">El desarrollo de esta práctica consolidó la capacidad de vincular
+                    fenómenos físicos perceptibles (como la intensidad acústica, inteligibilidad y retardo temporal) con
+                    sus fundamentos matemáticos y operaciones sobre vectores en el dominio del tiempo utilizando
+                    herramientas como MATLAB.</p>
+                <ul class="list-disc pl-6 space-y-4 text-gray-300 text-lg leading-relaxed">
+                    <li><strong class="text-white">Sobre la adquisición y relación Fs-N-T:</strong> Se logró representar
+                        correctamente las señales de audio. Se verificó matemáticamente que la duración \( T = N/F_s \)
+                        se cumple, teniendo en cuenta la indexación del vector de tiempo.</li>
+                    <li><strong class="text-white">Sobre la clasificación temporal:</strong> La señal vocal es
+                        <em>cuasiperiódica</em>, mientras que la frase, el aplauso y el ruido se clasifican como <em>no
+                            periódicas</em> (el aplauso siendo un transitorio impulsivo y el ruido un comportamiento
+                        caótico).
+                    </li>
+                    <li><strong class="text-white">Sobre las transformaciones:</strong> Se comprobó experimentalmente la
+                        relación cuadrática de la energía al escalar la amplitud (\( E_{ax} = a^2 E_x \)). Además, se
+                        demostró la insensibilidad auditiva a los cambios puros de fase (inversión de amplitud) en
+                        contraste con transformaciones temporales como la inversión, que afectan drásticamente la
+                        percepción (fonética inversa).</li>
+                    <li><strong class="text-white">Análisis a ciegas:</strong> La extracción de métricas fundamentales
+                        como la energía (\( E_x \)), potencia (\( P_x \)) y valor RMS demostró ser un enfoque robusto
+                        para deducir la naturaleza de una señal acústica sin necesidad de una inspección auditiva
+                        previa.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 border-t border-gray-800 py-8 text-center text-gray-500">
+        <p>© 2026 Universidad Nacional de San Agustín - Ingeniería de Telecomunicaciones</p>
+        <p class="text-sm mt-2">Laboratorio 1: Señales y Sistemas</p>
+    </footer>
+
+    <!-- Custom JS -->
+    <script>
+        document.getElementById('revealBtn').addEventListener('click', function () {
+            this.classList.add('hidden');
+            const container = document.getElementById('revealContainer');
+            container.classList.remove('hidden');
+
+            const audio = container.querySelector('audio');
+            if (audio) audio.play();
+        });
+    </script>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox"
+        class="fixed inset-0 z-[100] bg-black/90 hidden flex justify-center items-center p-4 transition-opacity duration-300"
+        onclick="closeLightbox()">
+        <img id="lightbox-img" src=""
+            class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-transform duration-300 transform scale-95">
+        <button class="absolute top-6 right-6 text-white hover:text-gray-300" onclick="closeLightbox()">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.classList.remove('hidden');
+            setTimeout(() => {
+                img.classList.replace('scale-95', 'scale-100');
+            }, 10);
+        }
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.classList.replace('scale-100', 'scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>
