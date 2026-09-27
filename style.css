@@ -1,47 +1,76 @@
-/* style.css - Custom Styles for Laboratorio 1 */
+/* style.css - Custom Styles for Laboratorio 1 (Raycast Theme) */
+
+:root {
+  /* Colors */
+  --color-void-black: #040506;
+  --color-ink: #07080a;
+  --color-obsidian: #111214;
+  --color-graphite: #1b1c1e;
+  --color-smoke: #6a6b6c;
+  --color-ash: #9c9c9d;
+  --color-mist: #e6e6e6;
+  --color-iron: #454647;
+  --color-slate: #2f3031;
+  --color-pure-white: #ffffff;
+  --color-coral-pulse: #ff6363;
+  --color-ember-hush: #452324;
+  --color-electric-sky: #63a1ff;
+  --color-cobalt-edge: #143ca3;
+  --color-deep-space: #02193b;
+
+  /* Shadows (Raycast Key Shadow) */
+  --shadow-key: rgba(255,255,255,0.05) 0px 1px 0px 0px inset, rgba(255,255,255,0.25) 0px 0px 0px 1px, rgba(0,0,0,0.2) 0px -1px 0px 0px inset;
+  --shadow-key-hover: rgba(255,255,255,0.1) 0px 1px 0px 0px inset, rgba(255,99,99,0.4) 0px 0px 0px 1px, rgba(0,0,0,0.2) 0px -1px 0px 0px inset;
+}
 
 /* Base Styles */
 html {
     scroll-behavior: smooth;
+    background-color: var(--color-void-black);
 }
 
 body {
-    background-color: #0b1120;
-    background-image: 
-        radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-        radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), 
-        radial-gradient(at 100% 0%, hsla(339,49%,30%,0.2) 0, transparent 50%);
-    background-attachment: fixed;
+    background-color: var(--color-void-black);
+    color: var(--color-ash);
 }
 
-/* Glassmorphism Classes */
+/* Hero Background Override */
+.hero-gradient {
+    background-image: radial-gradient(circle at 50% 26%, rgba(4,63,150,0.4) 0%, rgba(6,18,37,0.1) 50%);
+}
+
+.hero-accent-shape-1 {
+    background-color: var(--color-coral-pulse);
+    filter: blur(60px);
+    opacity: 0.3;
+}
+.hero-accent-shape-2 {
+    background-color: var(--color-electric-sky);
+    filter: blur(60px);
+    opacity: 0.2;
+}
+
+/* Panels and Cards (Raycast Style) */
 .glass-panel {
-    background: rgba(30, 41, 59, 0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border-radius: 1.5rem;
+    background: transparent;
+    border-radius: 20px;
 }
 
 .glass-card {
-    background: rgba(30, 41, 59, 0.5);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    background: var(--color-ink);
+    border-radius: 16px;
+    box-shadow: var(--shadow-key);
+    transition: all 0.2s ease;
 }
 
 /* Animations & Interactions */
 .hover-lift {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .hover-lift:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.3);
-    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-key-hover);
 }
 
 @keyframes fadeIn {
@@ -50,58 +79,47 @@ body {
 }
 
 .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+    animation: fadeIn 0.3s ease-out forwards;
 }
 
-/* PrismJS Overrides for better integration */
+/* PrismJS Overrides for Raycast */
 pre[class*="language-"] {
     margin: 0 !important;
     border-radius: 0 !important;
-    background: #0f172a !important; /* Tailwind gray-900 */
+    background: var(--color-void-black) !important;
     text-shadow: none !important;
+    border-top: 1px solid var(--color-graphite);
 }
 
 code[class*="language-"], pre[class*="language-"] {
     font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.85rem !important;
+    font-size: 13px !important;
     white-space: pre-wrap !important;
     word-break: break-word !important;
+    color: var(--color-ash) !important;
 }
 
 /* Custom Audio Player Styling */
 .custom-audio {
     height: 36px;
-    border-radius: 18px;
+    border-radius: 8px;
     outline: none;
-}
-.custom-audio::-webkit-media-controls-panel {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-.custom-audio::-webkit-media-controls-play-button,
-.custom-audio::-webkit-media-controls-mute-button {
-    background-color: transparent;
-    border-radius: 50%;
-}
-.custom-audio::-webkit-media-controls-current-time-display,
-.custom-audio::-webkit-media-controls-time-remaining-display {
-    color: #1e293b;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
+    filter: invert(0.9) hue-rotate(180deg);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: #0f172a; 
+    background: var(--color-void-black); 
 }
 ::-webkit-scrollbar-thumb {
-    background: #334155; 
-    border-radius: 5px;
+    background: var(--color-iron); 
+    border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #475569; 
+    background: var(--color-smoke); 
 }
 
 /* Table Styling Overrides */
@@ -109,9 +127,14 @@ table {
     border-collapse: separate;
     border-spacing: 0;
 }
-th, td {
+th {
+    border-bottom: 1px solid var(--color-graphite);
+    background-color: var(--color-ink);
+}
+td {
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 tr:last-child td {
     border-bottom: none;
 }
+

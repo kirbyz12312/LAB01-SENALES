@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratorio 1: Señales y Sistemas</title>
 
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CSS -->
@@ -20,14 +20,25 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        primary: '#3b82f6',
-                        secondary: '#8b5cf6',
-                        darkBg: '#0f172a',
-                        cardBg: '#1e293b',
+                        'void-black': '#040506',
+                        'ink': '#07080a',
+                        'obsidian': '#111214',
+                        'graphite': '#1b1c1e',
+                        'smoke': '#6a6b6c',
+                        'ash': '#9c9c9d',
+                        'mist': '#e6e6e6',
+                        'iron': '#454647',
+                        'slate': '#2f3031',
+                        'pure-white': '#ffffff',
+                        'coral-pulse': '#ff6363',
+                        'ember-hush': '#452324',
+                        'electric-sky': '#63a1ff',
+                        'cobalt-edge': '#143ca3',
+                        'deep-space': '#02193b'
                     }
                 }
             }
@@ -46,7 +57,40 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-darkBg text-gray-200 font-sans antialiased overflow-x-hidden">
+<body class="bg-void-black text-ash font-sans antialiased overflow-x-hidden">
+
+    <!-- Raycast Floating Navbar -->
+    <nav
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-4 py-2 bg-ink/70 backdrop-blur-xl border border-graphite rounded-lg w-[95%] max-w-4xl shadow-2xl">
+        <!-- Logo Area -->
+        <div class="flex items-center gap-3">
+            <div class="w-3 h-3 bg-coral-pulse rotate-45 ml-1"></div>
+            <span class="text-[13px] font-medium text-pure-white hidden sm:block">Laboratorio 1</span>
+        </div>
+
+        <!-- Center Links -->
+        <div class="hidden md:flex items-center gap-6">
+            <a href="#intro"
+                class="text-[13px] font-medium text-ash hover:text-pure-white transition-colors">Conceptos</a>
+            <a href="#adquisicion"
+                class="text-[13px] font-medium text-ash hover:text-pure-white transition-colors">2.1</a>
+            <a href="#ampliaciones"
+                class="text-[13px] font-medium text-ash hover:text-pure-white transition-colors">2.2</a>
+            <a href="#caracterizacion"
+                class="text-[13px] font-medium text-ash hover:text-pure-white transition-colors">2.3</a>
+            <a href="#transformaciones"
+                class="text-[13px] font-medium text-ash hover:text-pure-white transition-colors">2.4</a>
+            <a href="#ciegas" class="text-[13px] font-medium text-ash hover:text-pure-white transition-colors">2.5</a>
+            <a href="#conclusiones"
+                class="text-[13px] font-medium text-ash hover:text-pure-white transition-colors">Conclusión</a>
+        </div>
+
+        <!-- Right Action -->
+        <a href="#intro"
+            class="bg-mist text-iron text-[13px] font-medium px-4 py-1.5 rounded-[6px] hover:bg-white transition-colors">
+            Explorar
+        </a>
+    </nav>
 
     <!-- Hero Section -->
     <header
@@ -73,30 +117,41 @@
             </div>
 
             <!-- Title -->
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-lg leading-tight">Laboratorio
-                1:<br><span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Representación y
+            <h1 class="text-5xl md:text-[56px] font-normal text-pure-white mb-6 leading-tight tracking-[0.22px]">
+                Laboratorio
+                1:<br><span class="text-pure-white">Representación y
                     Análisis de Señales</span></h1>
-            <p class="text-xl text-gray-300 mb-8 font-light">Curso: Señales y Sistemas</p>
+            <p class="text-xl text-pure-white mb-6 font-light">Curso: Señales y Sistemas</p>
+
+            <div class="text-[13px] text-pure-white text-center mb-8 font-mono space-y-1">
+                <p>Gutierrez Barrionuevo, Henry Andre</p>
+                <p>Gutierrez Ccolqque, Franco Arturo</p>
+                <p>Quispe Flores, Benjamín Eduardo</p>
+                <p>Quispe Yncarroque, Alex Cesar</p>
+                <p>Uturunco Cuela, Zaul Francisco</p>
+                <p>Villalta Checalla, Gianluigi Jeremy</p>
+            </div>
+
             <a href="#intro"
-                class="inline-block px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+                class="inline-block px-8 py-3 bg-mist text-iron font-medium text-[14px] rounded-lg hover:bg-white transition-colors duration-200 shadow-sm">
                 Iniciar Exploración
             </a>
         </div>
 
-        <!-- Animated Background Elements -->
-        <div class="absolute w-96 h-96 bg-blue-500 rounded-full blur-[100px] opacity-20 -top-20 -left-20 animate-pulse">
+        <!-- Raycast Hero Accent Shapes -->
+        <div class="absolute w-[800px] h-[300px] hero-accent-shape-1 -rotate-45 top-0 left-1/4 pointer-events-none">
         </div>
-        <div class="absolute w-96 h-96 bg-purple-500 rounded-full blur-[100px] opacity-20 -bottom-20 -right-20 animate-pulse"
-            style="animation-delay: 2s;"></div>
+        <div class="absolute w-[600px] h-[400px] hero-accent-shape-2 rotate-12 top-1/4 right-0 pointer-events-none">
+        </div>
     </header>
 
     <main class="container mx-auto px-4 md:px-8 py-12 max-w-7xl">
 
         <!-- Sección Introductoria -->
-        <section id="intro" class="mb-20 pt-10">
-            <h2 class="text-3xl font-bold mb-10 text-center border-b border-gray-700 pb-4"><span
-                    class="text-blue-400">1.</span> Conceptos Previos y Funciones MATLAB</h2>
+        <section id="intro" class="mb-20 pt-10 scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-10 border-b text-pure-white border-gray-700 pb-4"><span
+                    class="text-coral-pulse font-normal">1.</span>
+                Conceptos Previos y Funciones MATLAB</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Concept Card 1 -->
                 <div class="glass-card p-6 rounded-2xl hover-lift">
@@ -161,9 +216,11 @@
         </section>
 
         <!-- Sección 2.1 - Adquisición de Señales -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.1</span> Adquisición de Señales
-                Reales</h2>
+        <section id="adquisicion" class="mb-20 scroll-mt-24">
+            <h2 class="text-3xl font-medium mb-8 text-pure-white tracking-tight"><span
+                    class="text-coral-pulse font-normal">2.1</span> Adquisición de Señales
+                Reales <span class="text-[13px] font-mono text-smoke ml-4 align-middle">Expositor (Gutierrez Ccolqque,
+                    Franco Arturo)</span></h2>
             <div class="glass-panel p-8">
                 <p class="text-gray-300 mb-6 text-lg">Lectura de archivos de audio, conversión a monocanal y
                     estructuración matemática del vector de tiempo digital para 4 tipos de señales grabadas a \(
@@ -293,9 +350,11 @@ Diferencia (T - t[N-1]):     0.000021 s (1/Fs = 0.000021 s)</pre>
         </section>
 
         <!-- Sección 2.2 - Ampliaciones -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.2</span> Ampliaciones
-                Temporales (Zoom)</h2>
+        <section id="ampliaciones" class="mb-20 scroll-mt-24">
+            <h2 class="text-3xl font-medium mb-8 text-pure-white tracking-tight"><span
+                    class="text-coral-pulse font-normal">2.2</span> Ampliaciones
+                Temporales (Zoom) <span class="text-[13px] font-mono text-smoke ml-4 align-middle">Expositor (Quispe
+                    Flores, Benjamín Eduardo)</span></h2>
             <div class="glass-panel p-8">
 
                 <p class="text-gray-300 mb-6 text-lg">Para clasificar las señales, se analizan ventanas temporales
@@ -371,8 +430,11 @@ xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;</code></pre>
         </section>
 
         <!-- Sección 2.3 - Análisis y Caracterización -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.3</span> Caracterización Básica
+        <section id="caracterizacion" class="mb-20 scroll-mt-24">
+            <h2 class="text-3xl font-medium mb-8 text-pure-white tracking-tight"><span
+                    class="text-coral-pulse font-normal">2.3</span> Caracterización Básica
+                <span class="text-[13px] font-mono text-smoke ml-4 align-middle">Expositor (Quispe Yncarroque, Alex
+                    Cesar)</span>
             </h2>
             <div class="glass-panel p-8">
 
@@ -506,9 +568,11 @@ Ruido Ambiente     48000    266240     5.5467     0.175354   -0.000038    0.0149
         </section>
 
         <!-- Sección 2.4 - Transformaciones (Interactiva) -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.4</span> Transformaciones de
-                Señales</h2>
+        <section id="transformaciones" class="mb-20 scroll-mt-24">
+            <h2 class="text-3xl font-medium mb-8 text-pure-white tracking-tight"><span
+                    class="text-coral-pulse font-normal">2.4</span> Transformaciones de
+                Señales <span class="text-[13px] font-mono text-smoke ml-4 align-middle">Expositor (Uturunco Cuela, Zaul
+                    Francisco)</span></h2>
             <p class="text-gray-300 text-lg mb-8">Aplicadas sobre la frase <span class="italic text-white">"Señales y
                     Sistemas"</span>. Explore el efecto visual, matemático y sonoro de cada operación.</p>
 
@@ -770,9 +834,11 @@ Fin de la reproducción.</pre>
         </section>
 
         <!-- Sección 2.5 - Identificación a Ciegas -->
-        <section class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">2.5</span> Identificación a
-                Ciegas</h2>
+        <section id="ciegas" class="mb-20 scroll-mt-24">
+            <h2 class="text-3xl font-medium mb-8 text-pure-white tracking-tight"><span
+                    class="text-coral-pulse font-normal">2.5</span> Identificación a
+                Ciegas <span class="text-[13px] font-mono text-smoke ml-4 align-middle">Expositor (Villalta Checalla,
+                    Gianluigi Jeremy)</span></h2>
             <div class="glass-panel p-8 relative overflow-hidden">
                 <!-- Decorative element -->
                 <div
@@ -902,7 +968,7 @@ sound(x, Fs);</code></pre>
         </section>
 
         <!-- Sección Conclusiones -->
-        <section class="mb-20">
+        <section id="conclusiones" class="mb-20 scroll-mt-24">
             <h2 class="text-3xl font-bold mb-8 text-white"><span class="text-blue-400">3.</span> Conclusiones y Análisis
             </h2>
             <div class="glass-panel p-8">
