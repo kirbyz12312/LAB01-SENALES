@@ -1,49 +1,55 @@
 /* style.css - Custom Styles for Laboratorio 1 (Raycast Theme) */
 
 :root {
-  /* DARK THEME (Stream-optimized: slightly lighter blacks, higher contrast text) */
-  --color-void-black: #090a0c; /* Slightly lighter than #040506 */
-  --color-ink: #0d0f12;        /* Slightly lighter than #07080a */
-  --color-obsidian: #16181d;
-  --color-graphite: #272a30;
-  --color-smoke: #8b8d91;      /* Brighter for legibility */
-  --color-ash: #b4b6b9;        /* Brighter for legibility */
-  --color-mist: #e6e6e6;
-  --color-iron: #111111;
-  --color-slate: #2f3031;
-  --color-pure-white: #ffffff;
-  --color-coral-pulse: #ff6b6b; /* Slightly brighter coral */
-  --color-ember-hush: #452324;
-  --color-electric-sky: #63a1ff;
-  --color-cobalt-edge: #143ca3;
-  --color-deep-space: #02193b;
+    /* DARK THEME (Stream-optimized: slightly lighter blacks, higher contrast text) */
+    --color-void-black: #090a0c;
+    /* Slightly lighter than #040506 */
+    --color-ink: #0d0f12;
+    /* Slightly lighter than #07080a */
+    --color-obsidian: #16181d;
+    --color-graphite: #272a30;
+    --color-smoke: #8b8d91;
+    /* Brighter for legibility */
+    --color-ash: #b4b6b9;
+    /* Brighter for legibility */
+    --color-mist: #e6e6e6;
+    --color-iron: #111111;
+    --color-slate: #2f3031;
+    --color-pure-white: #ffffff;
+    --color-coral-pulse: #ff6b6b;
+    /* Slightly brighter coral */
+    --color-ember-hush: #452324;
+    --color-electric-sky: #63a1ff;
+    --color-cobalt-edge: #143ca3;
+    --color-deep-space: #02193b;
 
-  /* Shadows (Raycast Key Shadow) */
-  --shadow-key: rgba(255,255,255,0.08) 0px 1px 0px 0px inset, rgba(255,255,255,0.2) 0px 0px 0px 1px, rgba(0,0,0,0.3) 0px -1px 0px 0px inset;
-  --shadow-key-hover: rgba(255,255,255,0.15) 0px 1px 0px 0px inset, rgba(255,107,107,0.5) 0px 0px 0px 1px, rgba(0,0,0,0.3) 0px -1px 0px 0px inset;
+    /* Shadows (Raycast Key Shadow) */
+    --shadow-key: rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.2) 0px 0px 0px 1px, rgba(0, 0, 0, 0.3) 0px -1px 0px 0px inset;
+    --shadow-key-hover: rgba(255, 255, 255, 0.15) 0px 1px 0px 0px inset, rgba(255, 107, 107, 0.5) 0px 0px 0px 1px, rgba(0, 0, 0, 0.3) 0px -1px 0px 0px inset;
 }
 
 :root[data-theme="light"] {
-  /* LIGHT THEME */
-  --color-void-black: #f8fafc;
-  --color-ink: #ffffff;
-  --color-obsidian: #f1f5f9;
-  --color-graphite: #e2e8f0;
-  --color-smoke: #64748b;
-  --color-ash: #334155;
-  --color-mist: #0f172a;
-  --color-iron: #ffffff;
-  --color-slate: #cbd5e1;
-  --color-pure-white: #020617; /* Black text for light mode */
-  --color-coral-pulse: #ef4444; 
-  --color-ember-hush: #fee2e2;
-  --color-electric-sky: #3b82f6;
-  --color-cobalt-edge: #1d4ed8;
-  --color-deep-space: #eff6ff;
+    /* LIGHT THEME */
+    --color-void-black: #f8fafc;
+    --color-ink: #ffffff;
+    --color-obsidian: #f1f5f9;
+    --color-graphite: #e2e8f0;
+    --color-smoke: #64748b;
+    --color-ash: #334155;
+    --color-mist: #0f172a;
+    --color-iron: #ffffff;
+    --color-slate: #cbd5e1;
+    --color-pure-white: #020617;
+    /* Black text for light mode */
+    --color-coral-pulse: #ef4444;
+    --color-ember-hush: #fee2e2;
+    --color-electric-sky: #3b82f6;
+    --color-cobalt-edge: #1d4ed8;
+    --color-deep-space: #eff6ff;
 
-  /* Shadows for Light Theme */
-  --shadow-key: rgba(0,0,0,0.05) 0px 4px 12px, rgba(0,0,0,0.08) 0px 0px 0px 1px;
-  --shadow-key-hover: rgba(0,0,0,0.08) 0px 6px 16px, rgba(239,68,68,0.4) 0px 0px 0px 1px;
+    /* Shadows for Light Theme */
+    --shadow-key: rgba(0, 0, 0, 0.05) 0px 4px 12px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    --shadow-key-hover: rgba(0, 0, 0, 0.08) 0px 6px 16px, rgba(239, 68, 68, 0.4) 0px 0px 0px 1px;
 }
 
 /* Base Styles */
@@ -56,21 +62,29 @@ html {
 body {
     background-color: var(--color-void-black);
     color: var(--color-ash);
-    font-weight: 500; /* Increased for stream readability */
+    font-weight: 500;
+    /* Increased for stream readability */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700 !important; /* Bold headers for better contrast */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700 !important;
+    /* Bold headers for better contrast */
     color: var(--color-pure-white);
 }
 
 /* Hero Background Override */
 .hero-gradient {
-    background-image: radial-gradient(circle at 50% 26%, rgba(4,63,150,0.3) 0%, transparent 50%);
+    background-image: radial-gradient(circle at 50% 26%, rgba(4, 63, 150, 0.3) 0%, transparent 50%);
 }
+
 :root[data-theme="light"] .hero-gradient {
-    background-image: radial-gradient(circle at 50% 26%, rgba(59,130,246,0.1) 0%, transparent 50%);
+    background-image: radial-gradient(circle at 50% 26%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
 }
 
 .hero-accent-shape-1 {
@@ -78,6 +92,7 @@ h1, h2, h3, h4, h5, h6 {
     filter: blur(60px);
     opacity: 0.3;
 }
+
 .hero-accent-shape-2 {
     background-color: var(--color-electric-sky);
     filter: blur(60px);
@@ -108,8 +123,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .animate-fade-in {
@@ -125,9 +147,11 @@ pre[class*="language-"] {
     border-top: 1px solid var(--color-graphite);
 }
 
-code[class*="language-"], pre[class*="language-"] {
+code[class*="language-"],
+pre[class*="language-"] {
     font-family: 'JetBrains Mono', monospace !important;
-    font-size: 14px !important; /* Slightly larger for streams */
+    font-size: 14px !important;
+    /* Slightly larger for streams */
     font-weight: 500 !important;
     white-space: pre-wrap !important;
     word-break: break-word !important;
@@ -141,23 +165,28 @@ code[class*="language-"], pre[class*="language-"] {
     outline: none;
     filter: invert(0.9) hue-rotate(180deg);
 }
+
 :root[data-theme="light"] .custom-audio {
-    filter: none; /* Normal audio player in light mode */
+    filter: none;
+    /* Normal audio player in light mode */
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-    background: var(--color-void-black); 
+    background: var(--color-void-black);
 }
+
 ::-webkit-scrollbar-thumb {
-    background: var(--color-smoke); 
+    background: var(--color-smoke);
     border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-ash); 
+    background: var(--color-ash);
 }
 
 /* Table Styling Overrides */
@@ -165,15 +194,17 @@ table {
     border-collapse: separate;
     border-spacing: 0;
 }
+
 th {
     border-bottom: 2px solid var(--color-graphite);
     background-color: var(--color-ink);
     color: var(--color-pure-white);
 }
+
 td {
     border-bottom: 1px solid var(--color-graphite);
 }
+
 tr:last-child td {
     border-bottom: none;
 }
-
