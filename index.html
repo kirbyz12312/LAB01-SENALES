@@ -24,21 +24,31 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        'void-black': '#040506',
-                        'ink': '#07080a',
-                        'obsidian': '#111214',
-                        'graphite': '#1b1c1e',
-                        'smoke': '#6a6b6c',
-                        'ash': '#9c9c9d',
-                        'mist': '#e6e6e6',
-                        'iron': '#454647',
-                        'slate': '#2f3031',
-                        'pure-white': '#ffffff',
-                        'coral-pulse': '#ff6363',
-                        'ember-hush': '#452324',
-                        'electric-sky': '#63a1ff',
-                        'cobalt-edge': '#143ca3',
-                        'deep-space': '#02193b'
+                        'void-black': 'var(--color-void-black)',
+                        'ink': 'var(--color-ink)',
+                        'obsidian': 'var(--color-obsidian)',
+                        'graphite': 'var(--color-graphite)',
+                        'smoke': 'var(--color-smoke)',
+                        'ash': 'var(--color-ash)',
+                        'mist': 'var(--color-mist)',
+                        'iron': 'var(--color-iron)',
+                        'slate': 'var(--color-slate)',
+                        'pure-white': 'var(--color-pure-white)',
+                        'coral-pulse': 'var(--color-coral-pulse)',
+                        'ember-hush': 'var(--color-ember-hush)',
+                        'electric-sky': 'var(--color-electric-sky)',
+                        'cobalt-edge': 'var(--color-cobalt-edge)',
+                        'deep-space': 'var(--color-deep-space)',
+                        gray: {
+                            300: 'var(--color-ash)',
+                            400: 'var(--color-smoke)',
+                            500: 'var(--color-smoke)',
+                            700: 'var(--color-graphite)',
+                            800: 'var(--color-ink)',
+                            900: 'var(--color-obsidian)'
+                        },
+                        white: 'var(--color-pure-white)',
+                        black: 'var(--color-void-black)'
                     }
                 }
             }
@@ -86,10 +96,17 @@
         </div>
 
         <!-- Right Action -->
-        <a href="#intro"
-            class="bg-mist text-iron text-[13px] font-medium px-4 py-1.5 rounded-[6px] hover:bg-white transition-colors">
-            Explorar
-        </a>
+        <div class="flex items-center gap-4">
+            <button id="themeToggle" class="text-smoke hover:text-pure-white transition-colors" title="Cambiar Tema">
+                <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+            </button>
+            <a href="#intro"
+                class="bg-mist text-iron text-[13px] font-medium px-4 py-1.5 rounded-[6px] hover:bg-white transition-colors">
+                Explorar
+            </a>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -1047,6 +1064,33 @@ sound(x, Fs);</code></pre>
             setTimeout(() => {
                 lightbox.classList.add('hidden');
             }, 300);
+        }
+    </script>
+    <!-- Theme Toggle Script -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Iniciar con tema guardado o por defecto oscuro
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'light') {
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            } else {
+                themeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            }
         }
     </script>
 </body>
