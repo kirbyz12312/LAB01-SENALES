@@ -99,7 +99,9 @@
         <div class="flex items-center gap-4">
             <button id="themeToggle" class="text-smoke hover:text-pure-white transition-colors" title="Cambiar Tema">
                 <svg id="themeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                    </path>
                 </svg>
             </button>
             <a href="#intro"
@@ -465,6 +467,7 @@ xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;</code></pre>
                         <div>\( \mu_x = \frac{1}{N} \sum_{n=0}^{N-1} x[n] \)</div>
                         <div>\( E_x = \sum_{n=0}^{N-1} |x[n]|^2 \)</div>
                         <div>\( P_x = \frac{1}{N} \sum_{n=0}^{N-1} |x[n]|^2 \)</div>
+                        <div>\( x_{\text{RMS}} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} |x[n]|^2} \)</div>
                     </div>
                 </div>
 
@@ -591,7 +594,7 @@ Ruido Ambiente     48000    266240     5.5467     0.175354   -0.000038    0.0149
                 Señales <span class="text-[13px] font-mono text-smoke ml-4 align-middle">Expositor (Uturunco Cuela, Zaul
                     Francisco)</span></h2>
             <p class="text-gray-300 text-lg mb-8">Aplicadas sobre la frase <span class="italic text-white">"Señales y
-                    Sistemas"</span>. Explore el efecto visual, matemático y sonoro de cada operación.</p>
+                    Sistemas"</span>. Explore el efecto visual, matemáticación.</p>
 
 
             <div class="code-container rounded-xl overflow-hidden shadow-2xl">
@@ -1070,7 +1073,7 @@ sound(x, Fs);</code></pre>
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
-        
+
         // Iniciar con tema guardado o por defecto oscuro
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -1079,7 +1082,7 @@ sound(x, Fs);</code></pre>
         themeToggle.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
+
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateIcon(newTheme);
