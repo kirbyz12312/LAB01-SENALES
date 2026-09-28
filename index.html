@@ -386,7 +386,7 @@ Diferencia (T - t[N-1]):     0.000021 s (1/Fs = 0.000021 s)</pre>
                         <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_AMPLIACION_TEMPORAL.m</span>
                     </div>
-                    <pre class="!m-0 whitespace-pre-wrap break-words max-h-[400px] overflow-y-auto"><code class="language-matlab">% 2.2 Ampliaciones Temporales
+                    <pre class="!m-0 whitespace-pre-wrap break-words"><code class="language-matlab">% 2.2 Ampliaciones Temporales
 figure('Name', 'Observacion en Escalas Temporales Detalladas', 'NumberTitle', 'off');
 
 % 1. Vocal "a" (Zoom de 20 ms en una zona central, ej. t = 1.0 s a 1.02 s)
@@ -467,7 +467,6 @@ xlabel('Tiempo (s)'); ylabel('Amplitud'); grid on;</code></pre>
                         <div>\( \mu_x = \frac{1}{N} \sum_{n=0}^{N-1} x[n] \)</div>
                         <div>\( E_x = \sum_{n=0}^{N-1} |x[n]|^2 \)</div>
                         <div>\( P_x = \frac{1}{N} \sum_{n=0}^{N-1} |x[n]|^2 \)</div>
-                        <div>\( x_{\text{RMS}} = \sqrt{\frac{1}{N} \sum_{n=0}^{N-1} |x[n]|^2} \)</div>
                     </div>
                 </div>
 
@@ -594,7 +593,7 @@ Ruido Ambiente     48000    266240     5.5467     0.175354   -0.000038    0.0149
                 Señales <span class="text-[13px] font-mono text-smoke ml-4 align-middle">Expositor (Uturunco Cuela, Zaul
                     Francisco)</span></h2>
             <p class="text-gray-300 text-lg mb-8">Aplicadas sobre la frase <span class="italic text-white">"Señales y
-                    Sistemas"</span>. Explore el efecto visual, matemáticación.</p>
+                    Sistemas"</span>. Exploraremos el efecto visual, matemático y sonoro de cada operación.</p>
 
 
             <div class="code-container rounded-xl overflow-hidden shadow-2xl">
@@ -604,7 +603,7 @@ Ruido Ambiente     48000    266240     5.5467     0.175354   -0.000038    0.0149
                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
                     <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_ESCALAMIENTO.m</span>
                 </div>
-                <pre class="!m-0 whitespace-pre-wrap break-words max-h-[400px] overflow-y-auto"><code class="language-matlab">% 2.4 Transformaciones (Amplitud y Tiempo)
+                <pre class="!m-0 whitespace-pre-wrap break-words"><code class="language-matlab">% 2.4 Transformaciones (Amplitud y Tiempo)
 
 %% 1. CARGA DE LA SENAL ORIGINAL
 nombre_archivo = 'Frase.wav';
@@ -927,7 +926,7 @@ Fin de la reproducción.</pre>
                         <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         <span class="text-xs text-gray-500 font-mono ml-2">LAB_01_SENAL_DESCONOCIDA.m</span>
                     </div>
-                    <pre class="!m-0 whitespace-pre-wrap break-words max-h-[400px] overflow-y-auto"><code class="language-matlab">% SECCION 2.5: IDENTIFICACION DE SEÑAL DESCONOCIDA (ANALISIS A CIEGAS)
+                    <pre class="!m-0 whitespace-pre-wrap break-words"><code class="language-matlab">% SECCION 2.5: IDENTIFICACION DE SEÑAL DESCONOCIDA (ANALISIS A CIEGAS)
 clc; clear; close all;
 
 % 1. Cargar el audio incognita
